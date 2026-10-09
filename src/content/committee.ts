@@ -3,6 +3,7 @@ import type { StaticImageData } from "next/image";
 import alessandroPhoto from "@assets/images/Alessandro_photo.jpeg";
 import eleonoraPhoto from "@assets/images/Eleonora_photo.jpeg";
 import eustachePhoto from "@assets/images/Eustache_photo.jpeg";
+import francescaPhoto from "@assets/images/Francesca_photo.jpeg";
 import kenPhoto from "@assets/images/Ken_photo.jpeg";
 import qseLogo from "@assets/images/Logo_QSE.png";
 import lucaPhoto from "@assets/images/Luca_photo.png";
@@ -42,11 +43,11 @@ export const committee: CommitteeMember[] = [
     image: eustachePhoto,
   },
   {
-    // TODO: add Francesca_photo.jpg to assets/images and import it here
     name: "Francesca Fino",
     role: "MSc student in Quantum Science and Engineering",
     href: "https://www.linkedin.com/in/francesca-fino-b62a37250/",
     linkLabel: "Francesca Fino LinkedIn profile",
+    image: francescaPhoto,
   },
   {
     name: "Eleonora Giuliani",
