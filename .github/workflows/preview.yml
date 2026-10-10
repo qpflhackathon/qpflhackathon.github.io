@@ -20,16 +20,47 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Copy site into preview/
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build static site
+        run: pnpm build
+        env:
+          BASE_PATH: /previews/pr-${{ github.event.number }}
+
+      # GitHub Pages runs Jekyll unless .nojekyll is at the branch root, and
+      # Jekyll drops folders starting with "_", which removes Next.js' _next/.
+      - name: Ensure .nojekyll at gh-pages root
         run: |
-          mkdir preview
-          cp -r index.html style.css assets preview/
+          git fetch origin gh-pages
+          git worktree add --detach ../gh-pages FETCH_HEAD
+          cd ../gh-pages
+          if [ ! -f .nojekyll ]; then
+            touch .nojekyll
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add .nojekyll
+            git commit -m "Add .nojekyll so GitHub Pages serves _next/"
+            git push origin HEAD:gh-pages
+          fi
 
       - name: Preview Pages
         uses: rajyan/preview-pages@v1
         with:
-          source-dir: preview
+          source-dir: out
           target-dir: previews # → https://qpflhackathon.github.io/previews/pr-<N>/
+          # This is a user/org site served from the domain root; without this the
+          # action links to <owner>.github.io/<repo>/..., as for a project site.
+          configured-domain: qpflhackathon.github.io
           pr-per-commit: false # one preview per PR, overwritten on each push
           pr-comment: sticky # one comment per PR, updated in place
 

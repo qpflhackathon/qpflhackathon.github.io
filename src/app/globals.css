@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/* EPFL Quantum Hackathon visual language */
+@theme {
+  --color-rouge: #ff0000;
+  --color-groseille: #b51f1f;
+  --color-leman: #00a79f;
+  --color-canard: #007480;
+  --color-taupe: #413d3a;
+  --color-perle: #cac7c7;
+
+  --color-surface: #fafafa;
+  --color-sand: #f0edec;
+  --color-link: #0066cc;
+  --color-subtle: #666666;
+
+  --shadow-soft: 0 12px 30px rgb(0 0 0 / 0.06);
+  --shadow-card: 0 8px 20px rgb(0 0 0 / 0.02);
+}
+
+/* Font families are provided by next/font in the root layout */
+@theme inline {
+  --font-main: var(--font-lora), serif;
+  --font-ui: var(--font-space-grotesk), sans-serif;
+}
