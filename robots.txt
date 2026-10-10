@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /previews/
+
+Sitemap: https://qpflhackathon.github.io/sitemap.xml
